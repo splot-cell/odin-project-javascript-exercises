@@ -2,11 +2,20 @@ function isLetter(char) {
     return (char >= "a" && char <= "z") || (char >= "A" && char <= "Z");
 }
 
+function wrapShift(charCode, shift) {
+    // CAPS: 65 - 90
+    // lower: 97 - 122
+    if (charCode < 91) {
+        return ((((charCode - 65) + (shift % 26)) + 26) % 26) + 65;
+    }
+    return ((((charCode - 97) + (shift % 26)) + 26) % 26) + 97; 
+}
+
 const caesar = function(string, shift) {
     let coded = "";
     for (let i = 0; i < string.length; i++) {
         if (isLetter(string.charAt(i))) {
-            coded += String.fromCharCode(string.charCodeAt(i) + shift);
+            coded += String.fromCharCode(wrapShift(string.charCodeAt(i), shift));
         } else {
             coded += string.charAt(i);
         }
