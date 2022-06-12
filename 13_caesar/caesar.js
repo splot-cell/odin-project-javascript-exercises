@@ -17,15 +17,9 @@ function wrapShift(charCode, shift) {
 }
 
 const caesar = function(string, shift) {
-    let coded = "";
-    for (let i = 0; i < string.length; i++) {
-        if (isLetter(string.charAt(i))) {
-            coded += String.fromCharCode(wrapShift(string.charCodeAt(i), shift));
-        } else {
-            coded += string.charAt(i);
-        }
-    }
-    return coded;
+    return string.split("")
+                 .map(letter => isLetter(letter) ? String.fromCharCode(wrapShift(letter.charCodeAt(), shift)) : letter)
+                 .join("");
 };
 
 // Do not edit below this line
